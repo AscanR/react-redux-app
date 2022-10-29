@@ -15,7 +15,7 @@ const App = (params) => {
 
     useEffect(() => {
         dispatch(loadTasks())
-    }, [])
+    }, [dispatch])
 
     const changeTitle = (taskId) => {
         dispatch(titleChanged(taskId))
@@ -25,10 +25,8 @@ const App = (params) => {
         dispatch(taskDeleted(taskId))
     }
 
-    const uploadTask = async () => {
-        const task = await dispatch(createTask())
-        console.log(task)
-        return task
+    const uploadTask = (task) => {
+        dispatch(createTask(task))
     }
 
     if (isLoading) {
@@ -55,7 +53,7 @@ const App = (params) => {
                   )
                   }
               </ul>
-              <button onClick={uploadTask}>Upload Task</button>
+              <button onClick={() => uploadTask({title: 'New Post', completed: false})}>Upload Task</button>
           </>
     )
 }
